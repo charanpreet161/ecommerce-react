@@ -13,7 +13,7 @@ const { search, setSearch, showSearch, setShowSearch} = useContext(ShopContext);
     <img className='w-4' src={assets.search_icon} alt="" />
 
 </div>
-<img onClick={() =>setShowSearch(false)} src={assets.cross_icon} alt="" />
+<img onClick={() =>setShowSearch(false)} className='inline w-3 cursor-pointer' src={assets.cross_icon} alt="" />
     </div>
   ) : null;
 } 
