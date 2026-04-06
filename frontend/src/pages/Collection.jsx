@@ -6,7 +6,7 @@ import ProductItem from '../components/ProductItem';
 
 const Collection = () => {
 
-const { products } = useContext(ShopContext);
+const { products , search , showSearch } = useContext(ShopContext);
 const [showFilter, setShowFilter] = useState(false);
 const [filterProducts,setFilterProducts] = useState([]);
 const [category,setCategory] =useState([]);
@@ -37,6 +37,10 @@ else{
 const applyFilter =() => {
 
   let productsCopy = products.slice();
+
+  if (showSearch && search){
+productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
+  }
 
 if (category.length > 0){
   productsCopy = productsCopy.filter(item => category.includes(item.category));
@@ -71,7 +75,7 @@ case 'high-low':
 
 useEffect(( )=> {
   applyFilter()
-},[category,subCategory])
+},[category,subCategory,search,showSearch])
 
 useEffect(() => {
   sortProduct();
@@ -125,7 +129,7 @@ useEffect(() => {
 <Title text1={'ALL'} text2={'COLLECTIONS'}/>
 {/* Product Sort */}
 <select onChange={(e)=>setsortType(e.target.value)}className='border-2 border-gray-300 text-sm px-2'>
-  <option value="relavent">Sort by: Relavent</option>
+  <option value="relevent">Sort by: Relevent</option>
   <option value="low-high">Sort by: Low to High</option>
   <option value="high-low">Sort by: High to Low</option>
 </select>
@@ -135,7 +139,7 @@ useEffect(() => {
 <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
 {
   filterProducts.map((item,index)=>(
-    <ProductItem key={index} name={item.name} id={item.id} price={item.price} image={item.image}/>
+    <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image}/>
   ))
 }
 </div>
